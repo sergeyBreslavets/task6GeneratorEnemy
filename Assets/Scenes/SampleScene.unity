@@ -403,6 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy: {fileID: 2214145475256105424, guid: 3ef8bd01e71cc374dab5f3442dca95cb, type: 3}
   _timeSpawn: 2
+  _maxCountEnemies: 10
 --- !u!4 &1057670788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4638330364762313697, guid: 658813cb33a608f43bc1eb6cac94b720, type: 3}
