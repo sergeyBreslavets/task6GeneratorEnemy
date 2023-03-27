@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private float _speed;
   
-    void Update()
+    private void Update()
     {
        if(transform.position != _target.position)
        {

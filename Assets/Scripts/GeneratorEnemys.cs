@@ -10,6 +10,7 @@ public class GeneratorEnemys : MonoBehaviour
     private int _countEnemies = 0;
     private Transform[] _spawnPoints;
     private int _spawnTarget = 0;
+    private WaitForSeconds _sleepTime;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class GeneratorEnemys : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
             _spawnPoints[i] = transform.GetChild(i);
 
+        _sleepTime = new WaitForSeconds(_timeSpawn);
         StartCoroutine(Spawn());
     }
 
@@ -32,7 +34,7 @@ public class GeneratorEnemys : MonoBehaviour
             if (_spawnTarget >= _spawnPoints.Length)
                 _spawnTarget = 0;
 
-            yield return new WaitForSeconds(_timeSpawn);
+            yield return _sleepTime;
         }
     }
 }
