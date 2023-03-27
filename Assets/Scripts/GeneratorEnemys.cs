@@ -1,40 +1,38 @@
+using System.Collections;
 using UnityEngine;
 
 public class GeneratorEnemys : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private float _timeSpawn;
+    [SerializeField] private float _timeSpawn = 2f;
+    [SerializeField] private int _maxCountEnemies = 100;
 
+    private int _countEnemies = 0;
     private Transform[] _spawnPoints;
-    private float _runnigTime = 0;
     private int _spawnTarget = 0;
 
-    void Start()
+    private void Start()
     {
         _spawnPoints = new Transform[transform.childCount];
 
         for (int i = 0; i < transform.childCount; i++)
             _spawnPoints[i] = transform.GetChild(i);
+
+        StartCoroutine(Spawn());
     }
 
-
-    private void Update()
+    private IEnumerator Spawn()
     {
-        _runnigTime += Time.deltaTime;
-
-        if (_runnigTime >= _timeSpawn)
+        while (_countEnemies < _maxCountEnemies)
         {
-            _runnigTime = 0;
-            Spawn(_spawnTarget);
+            Instantiate(_enemy, _spawnPoints[_spawnTarget].position, _spawnPoints[_spawnTarget].rotation);
+            _countEnemies++;
             _spawnTarget++;
 
             if (_spawnTarget >= _spawnPoints.Length)
                 _spawnTarget = 0;
-        }
-    }
 
-    private void Spawn(int indexPoint)
-    {
-        Instantiate(_enemy, _spawnPoints[indexPoint].position, _spawnPoints[indexPoint].rotation);
+            yield return new WaitForSeconds(_timeSpawn);
+        }
     }
 }
